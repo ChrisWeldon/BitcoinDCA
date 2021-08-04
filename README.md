@@ -13,10 +13,22 @@ An open-source project to allow for non-custodial dollar-cost-averaging of Bitco
 ## Installation Instructions
 
 1. Ensure Docker is installed on your machine:
+
 Visit [https://www.docker.com/products/docker-desktop]
 
 2. Clone repository to get the source code on your machine:
 
-`$ git clone https://github.com/ChrisWeldon/BitcoinDCA.git`
+`$ sudo git clone https://github.com/ChrisWeldon/BitcoinDCA.git`
 
-3. 
+3. Build the docker images:
+
+`$ sudo docker-compose -f docker-compose.dev.yml up --build`
+
+4. Setup MySQL database
+
+
+NOTE: If nodemon is not found or installed by the Dockerfile, install nodemon manually on your machines:
+```
+$ cd bitcoindca
+$ sudo npm install --save nodemon
+```
