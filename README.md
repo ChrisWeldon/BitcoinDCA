@@ -18,17 +18,28 @@ Visit [https://www.docker.com/products/docker-desktop]
 
 2. Clone repository to get the source code on your machine:
 
-`$ sudo git clone https://github.com/ChrisWeldon/BitcoinDCA.git`
+```$ sudo git clone https://github.com/ChrisWeldon/BitcoinDCA.git```
 
 3. Build the docker images:
 
-`$ sudo docker-compose -f docker-compose.dev.yml up --build`
-
-4. Setup MySQL database
+```$ sudo docker-compose -f docker-compose.dev.yml up --build```
 
 
-NOTE: If nodemon is not found or installed by the Dockerfile, install nodemon manually on your machines:
+*NOTE: If nodemon is not found or installed by the Dockerfile, install nodemon manually on your machines:*
 ```
 $ cd bitcoindca
 $ sudo npm install --save nodemon
 ```
+
+## Development
+To run development mode:
+
+```$ sudo docker-compose -f docker-compose.dev.yml up -d```
+
+`-d` tag runs in detached mode. Omit `-d` to watch the output logs realtime.
+
+Software automatically reruns with nodemon.
+
+Access to the backend at `localhost:3000`.
+
+Access to mysql directly at `mysqldb:3306`.
