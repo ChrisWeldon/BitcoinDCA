@@ -3,7 +3,7 @@ const express = require('express')
 const sequel = require('./database');
 
 const app = express()
-const port = 3000;
+const port = 5000;
 
 app.get('/', async function(req, res){
     try {

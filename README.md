@@ -40,6 +40,6 @@ To run development mode:
 
 Software automatically reruns with nodemon.
 
-Access to the backend at `localhost:3000`.
-
+Access to the backend at `localhost:5000`.
+Access to the frontend at `localhost:3000`.
 Access to mysql directly at `mysqldb:3306`.

@@ -1,19 +1,18 @@
 version: '3.8'
 
 services:
- notes:
+ api:
   build:
    context: bitcoindca
    dockerfile: Dockerfile
   ports:
-   - 3000:3000
+   - 5000:5000
    - 9229:9229
   environment:
    - SERVER_PORT=3000
   volumes:
    - ./bitcoindca/:/app
   command: npm run debug
-
 
  mysqldb:
   image: mysql
@@ -26,6 +25,17 @@ services:
   - ./init.sql:/data/application/init.sql
   - mysql:/var/lib/mysql
   - mysql_config:/etc/mysql
+
+ client:
+  build:
+   context: client
+   dockerfile: Dockerfile
+  ports:
+  - 3000:3000
+  volumes:
+  - './client/:/app'
+  command: npm start
+
 
 volumes:
   mysql:
