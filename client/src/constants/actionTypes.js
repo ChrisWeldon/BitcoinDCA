@@ -1,1 +1,5 @@
 export const FLIP_THEME = 'switcher/FLIP_THEME'
+export const REQUEST_LOGIN = 'login/REQUEST_LOGIN'
+export const LOGIN_FAIL = 'login/LOGIN_FAIL'
+export const LOGIN_SUCCESS = 'login/LOGIN_SUCCESS'
+export const LOGOUT = 'login/LOGOUT'

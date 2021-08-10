@@ -25,6 +25,9 @@ function App({night_mode}) {
                     <Route path='/login'>
                         <Login />
                     </Route>
+                    <Route path='/portal'>
+                        <NightSwitch />
+                    </Route>
                     <Route path='/'>
                         <NightSwitch />
                     </Route>

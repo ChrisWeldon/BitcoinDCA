@@ -10,7 +10,6 @@ export default function provisionStore(){
 
     const rootReducer = combineReducers({
         ...reducers,
-
     });
 
     const middlewares = composeWithDevTools(applyMiddleware(thunkMiddleware, loggerMiddleware));
