@@ -1,17 +1,39 @@
 import './App.css';
-import Switcher from '../containers/Switcher';
+import React from 'react';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { ThemeProvider, makeStyles } from '@material-ui/styles';
+import { Grid, TextField } from '@material-ui/core';
+import {lightTheme, darkTheme } from './themes';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>
-         Boilerplate Portal Foo
-        </h1>
-        <Switcher />
-      </header>
-    </div>
-  );
+import NightSwitch from '../containers/NightSwitch';
+import Login from '../containers/Login'
+
+function App({night_mode}) {
+    return (
+        <div className="App">
+            <ThemeProvider theme={night_mode ? darkTheme : lightTheme}>
+            <CssBaseline />
+            {/*<React.StrictMode>*/}
+            <Router>
+                <Switch>
+                    <Route path='/login'>
+                        <Login />
+                    </Route>
+                    <Route path='/'>
+                        <NightSwitch />
+                    </Route>
+                </ Switch>
+            </Router>
+            {/*</ React.StrictMode>*/}
+            </ThemeProvider>
+        </div>
+    );
 }
 
 export default App;

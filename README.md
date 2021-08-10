@@ -42,4 +42,4 @@ Software automatically reruns with nodemon.
 
 Access to the backend at `localhost:5000`.
 Access to the frontend at `localhost:3000`.
-Access to mysql directly at `mysqldb:3306`.
+Access to mysql directly at `root p@ssw0rd1 @ localhost:3306`.

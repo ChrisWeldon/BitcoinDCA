@@ -1,1 +1,1 @@
-export const FLIP_SWITCH = 'switcher/FLIP_SWITCH'
+export const FLIP_THEME = 'switcher/FLIP_THEME'

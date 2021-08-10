@@ -2,10 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux'
 import './index.css';
-import App from './components/App';
+import App from './containers/App';
 import provisionStore from './provisionStore';
 import reportWebVitals from './reportWebVitals';
-import {flip_switch} from './actions';
 
 
 //         MODERN React + Redux (go through tutorial)
@@ -16,13 +15,9 @@ import {flip_switch} from './actions';
 // TODO: READ Standard Redux Patterns
 
 let store = provisionStore()
-store.dispatch(flip_switch())
 render(
     <Provider store={store}>
-      <React.StrictMode>
         <App />
-      </React.StrictMode>,
-      document.getElementById('root')
     </Provider>,
     document.getElementById('root')
 );

@@ -1,5 +1,5 @@
 import {
-    FLIP_SWITCH
+    FLIP_THEME
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 
 export default function(state = initialState, action){
     switch(action.type){
-        case FLIP_SWITCH:
+        case FLIP_THEME:
             return {
                 ...state,
                 on : !state.on

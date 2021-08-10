@@ -1,4 +1,4 @@
 
-import switcher from './switcher'
+import nightmode from './nightmode'
 
-export default { switcher }
+export default { nightmode }
