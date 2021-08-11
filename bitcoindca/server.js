@@ -2,11 +2,14 @@ const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const passport = require('passport')
+const BasicStrategy = require('passport-http').BasicStrategy;
 
-const sequel = require('./database');
 
-var passport = require('passport')
-var BasicStrategy = require('passport-http').BasicStrategy;
+const { isAuthenticated } = require('./src/middleware')
+const { Sequel } = require('./src/database')
+
+database = new Sequel();
 
 const app = express()
 const port = 5000;
@@ -28,41 +31,25 @@ passport.deserializeUser(function(name, done) {
 
 passport.use(new BasicStrategy(
     function(username, password, done) {
-        console.log('strategy called')
-        if(username==='yes'){
-            console.log('login success')
-            return done(null, {name:'Chris'})
-        }
-        else{
-            console.log('login fail')
-            return done(null, false, { message: 'Incorrect username.' })
-        }
+
+        database.User.findOne({ where: { username: username } })
+            .then(function(user){
+                console.log('FOUNDONE')
+                console.log(user)
+                if(user===null){
+                    console.log('No user')
+                    return done(null, false, { message: 'No user of that name.' })
+                }else if (user.password!==password) {
+                    console.log('wrong pass')
+                    return done(null, false, { message: 'Incorrect password.' })
+                }
+                return done(null, {name:'Chris'})
+            })
+            .catch(error => done(err))
     }
 ));
 
-const isAuthenticated = function(req,res,next){
-   if(req.user)
-      return next();
-   else
-      return res.status(401).json({
-        error: 'User not authenticated'
-      })
 
-}
-
-
-// app.post('/login', function(req, res, next) {
-//   passport.authenticate('basic', function(err, user, info) {
-//     if (err) { return next(err); }
-//     if (!user) { return res.send({message:'LOGIN FAILED'}); }
-//     req.logIn(user, function(err) {
-//       if (err) { return next(err); }
-//       return res.send({message:'LOGIN SUCCESS'});
-//     });
-//   })(req, res, next);
-// });
-
-//
 app.post('/login',
     passport.authenticate('basic'),
     function(req, res){
@@ -71,10 +58,24 @@ app.post('/login',
     }
 );
 
+app.post('/register', async function(req, res){
+    console.log(req.body)
+    res.json(req.body)
+    //TODO verify that it is a good username and password
+    database.addUser(req.body.user, req.body.pass)
+        .then(model => res.json(model.toJSON()))
+        .catch(error => res.json({error}))
+});
+
+app.get('/users', isAuthenticated, function(req, res){
+    database.User.findAll()
+        .then(arr => arr.map(m => m.toJSON()))
+        .then(arr => res.json(arr))
+        .catch(error => res.json({error}))
+});
 
 
 app.get('/',
-    isAuthenticated,
     async function(req, res){
         try {
             await sequel.authenticate();
@@ -86,5 +87,9 @@ app.get('/',
         }
     }
 );
+
+app.use(function (err, req, res, next) {
+  res.status(400).send(err.message)
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
