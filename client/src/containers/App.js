@@ -4,7 +4,9 @@ import { flip_switch } from '../actions'
 
 const mapStateToProps = (state) => (
     {
-        night_mode: state.nightmode.on
+        night_mode: state.nightmode.on,
+        logged_in: state.authentication.logged_in,
+        user: state.authentication.user
     }
 )
 

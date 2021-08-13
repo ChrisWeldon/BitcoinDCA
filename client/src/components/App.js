@@ -8,13 +8,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
 import NightSwitch from '../containers/NightSwitch';
 import Login from '../containers/Login'
+import Register from '../containers/Register'
+import Portal from '../containers/Portal'
 
-function App({night_mode}) {
+function App({ night_mode, logged_in }) {
     return (
         <div className="App">
             <ThemeProvider theme={night_mode ? darkTheme : lightTheme}>
@@ -25,11 +28,16 @@ function App({night_mode}) {
                     <Route path='/login'>
                         <Login />
                     </Route>
+                    <Route path='/register'>
+                        <Register />
+                    </Route>
                     <Route path='/portal'>
-                        <NightSwitch />
+                        <Portal />
                     </Route>
                     <Route path='/'>
-                        <NightSwitch />
+                        <Redirect to={
+                            logged_in ? '/portal' : '/login'
+                        } />
                     </Route>
                 </ Switch>
             </Router>

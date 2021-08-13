@@ -18,6 +18,7 @@ app.use(session({ secret: "bitcoin" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(cors())
 
 passport.serializeUser(function(user, done) {
@@ -34,10 +35,7 @@ passport.use(new BasicStrategy(
 
         database.User.findOne({ where: { username: username } })
             .then(function(user){
-                console.log('FOUNDONE')
-                console.log(user)
                 if(user===null){
-                    console.log('No user')
                     return done(null, false, { message: 'No user of that name.' })
                 }else if (user.password!==password) {
                     console.log('wrong pass')
@@ -58,13 +56,23 @@ app.post('/login',
     }
 );
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.end()
+});
+
 app.post('/register', async function(req, res){
     console.log(req.body)
-    res.json(req.body)
     //TODO verify that it is a good username and password
     database.addUser(req.body.user, req.body.pass)
         .then(model => res.json(model.toJSON()))
-        .catch(error => res.json({error}))
+        .catch(error => {
+            console.log(error.name)
+            if(error.name==='SequelizeUniqueConstraintError')
+                res.json({error:'Username already taken.'})
+            else
+                res.json({error:'Failed to register user'})
+        })
 });
 
 app.get('/users', isAuthenticated, function(req, res){

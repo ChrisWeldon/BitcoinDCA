@@ -2,13 +2,19 @@ import {
     REQUEST_LOGIN,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
-    LOGOUT
+    REQUEST_LOGOUT,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
+    CLOSE_LOGIN_PROMPT
 } from '../constants/actionTypes'
 
 const initialState = {
-    loggedIn: false,
-    loggingIn: false,
-    user : null
+    logged_in: false,
+    logging_in: false,
+    logging_out: false,
+    prompt_open: false,
+    message: null,
+    user: null
 };
 
 export default function authentication(state = initialState, action) {
@@ -16,26 +22,46 @@ export default function authentication(state = initialState, action) {
         case REQUEST_LOGIN:
             return {
                 ...state,
-                loggingIn: true,
+                logging_in: true,
             };
         case LOGIN_SUCCESS:
             return {
-                loggedIn: true,
-                loggingIn: false,
+                ...state,
+                logged_in: true,
+                logging_in: false,
                 user: action.user
             };
         case LOGIN_FAIL:
             return {
                 ...state,
-                loggedIn:false,
+                logged_in:false,
+                prompt_open:true,
+                message: action.message,
                 user:null
             };
-        case LOGOUT:
+        case REQUEST_LOGOUT:
             return {
-                loggedIn: false,
-                loggingIn:false,
-                user:null
+                ...state,
+                logging_out:true,
             };
+        case LOGOUT_SUCCESS:
+            return {
+                ...state,
+                logged_in:false,
+                logging_out:false,
+                user:null
+            }
+        case LOGOUT_FAIL:
+            return {
+                ...state,
+                logging_out:false,
+                message: 'Failed to logout.'
+            }
+        case CLOSE_LOGIN_PROMPT:
+            return{
+                ...state,
+                prompt_open: false
+            }
         default:
             return state
 

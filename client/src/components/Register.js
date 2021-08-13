@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Grid, TextField, Paper, Button, Snackbar } from '@material-ui/core';
+import { Grid, TextField, Paper, Button, Snackbar} from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import NightSwitch from '../containers/NightSwitch';
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -32,12 +32,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Login({ login, logged_in, login_message, prompt_open, closePrompt}){
-
-
+export default function Register({ logged_in, register_message, prompt_open, register, closePrompt}){
     const classes = useStyles()
     const [username, setUser] = useState('');
     const [password, setPass] = useState('');
+    const [passwordconf, setPassConf] = useState('');
 
     const history = useHistory();
     if(logged_in){
@@ -46,6 +45,7 @@ export default function Login({ login, logged_in, login_message, prompt_open, cl
 
     var vertical= 'bottom'
     var horizontal= 'center'
+
 
     return(
         <Grid
@@ -62,11 +62,11 @@ export default function Login({ login, logged_in, login_message, prompt_open, cl
                   autoHideDuration={6000}
                   open={prompt_open}
                   onClose={()=>closePrompt()}
-                  message={login_message}
+                  message={register_message}
                   key={vertical + horizontal}
                 >
                     <MuiAlert elevation={6} variant='filled' onClose={()=>closePrompt()} severity="error">
-                        { login_message }
+                        { register_message }
                     </MuiAlert>
                 </Snackbar>
                 <form id='login' className={classes.form}>
@@ -90,19 +90,30 @@ export default function Login({ login, logged_in, login_message, prompt_open, cl
                           onChange={(e)=>setPass(e.target.value)}
                         />
                     </div>
+                    <div>
+                        <TextField
+                          id="outlined-multiline-static"
+                          label="confirm password"
+                          variant="outlined"
+                          type='password'
+                          className={classes.entry}
+                          onChange={(e)=>setPassConf(e.target.value)}
+                        />
+                    </div>
                     <Button className={classes.button}
                      form='form1'
                      type='submit'
                      value="Submit"
                      variant="contained"
                      color="primary"
+                     disabled={password!=passwordconf || password===''}
                      disableElevation
-                     onClick={()=>login(username, password)}
+                     onClick={()=>register(username, password)}
                     >
-                      Login
+                      Register
                     </Button>
                 </form>
-                <Link to="/register">Register</Link>
+                <Link to="/login">Login</Link>
                 <NightSwitch />
                 </Paper>
             </Grid>
