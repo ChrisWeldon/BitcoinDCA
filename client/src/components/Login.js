@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Grid, TextField, Paper, Button, Snackbar } from '@material-ui/core';
+import { Grid, TextField, Paper, Button, Snackbar, Typography } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import NightSwitch from '../containers/NightSwitch';
 import { Link, Redirect, useHistory } from "react-router-dom";
@@ -20,6 +20,17 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(1),
         },
     },
+    link:{
+        padding:theme.spacing(1),
+        passingBottom:theme.spacing(2),
+        textAlign: 'left',
+    },
+    linkText:{
+        color: theme.palette.text.secondary,
+        '&:hover': {
+           color: theme.palette.text.hint
+        },
+    },
     entry:{
         justifyContent:'left',
         width:300
@@ -33,8 +44,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login({ login, logged_in, login_message, prompt_open, closePrompt}){
-
-
     const classes = useStyles()
     const [username, setUser] = useState('');
     const [password, setPass] = useState('');
@@ -102,7 +111,9 @@ export default function Login({ login, logged_in, login_message, prompt_open, cl
                       Login
                     </Button>
                 </form>
-                <Link to="/register">Register</Link>
+                <Typography className={classes.link}>
+                    <Link className={classes.linkText} to="/register">Register</Link>
+                </Typography>
                 <NightSwitch />
                 </Paper>
             </Grid>

@@ -5,7 +5,7 @@ import './index.css';
 import App from './containers/App';
 import provisionStore from './provisionStore';
 import reportWebVitals from './reportWebVitals';
-
+import { PersistGate } from 'redux-persist/integration/react'
 
 //         MODERN React + Redux (go through tutorial)
 // TODO: Learn slices to replace reducers
@@ -14,10 +14,13 @@ import reportWebVitals from './reportWebVitals';
 //
 // TODO: READ Standard Redux Patterns
 
-let store = provisionStore()
+let { store, persistor } = provisionStore()
+persistor.purge()
 render(
     <Provider store={store}>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+            <App />
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 );

@@ -47,6 +47,12 @@ passport.use(new BasicStrategy(
     }
 ));
 
+app.use(async function(req, res, next){
+    database.addUser('chris', 'pass')
+        .then((usr)=>next())
+        .catch((err)=>next())
+})
+
 
 app.post('/login',
     passport.authenticate('basic'),

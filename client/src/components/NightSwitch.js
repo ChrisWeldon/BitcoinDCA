@@ -24,11 +24,11 @@ const NightSwitchStyled = withStyles((theme)=>({
     },
 }))(Switch);
 
-export default function NightSwitch({night_mode, flip_theme}){
+export default function NightSwitch({night_mode, flipTheme}){
     return (
         <FormGroup>
             <FormControlLabel
-                control={<NightSwitchStyled checked={night_mode} onChange={() => flip_theme()} name="NightSwitch" />}
+                control={<NightSwitchStyled checked={night_mode} onChange={() => flipTheme()} name="NightSwitch" />}
                 label={night_mode ? 'To Day?' : 'To Night?'}
             />
         </FormGroup>

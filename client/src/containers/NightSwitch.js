@@ -9,7 +9,7 @@ const mapStateToProps = (state) => (
 )
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    flip_theme: () => {dispatch(flip_theme())}
+    flipTheme: () => {dispatch(flip_theme())}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NightSwitch)

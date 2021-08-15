@@ -28,12 +28,13 @@ module.exports = {
                 }, {
                 // Other model options go here
                 });
-            this.User.sync({ alter: true })
+            this.User.sync({ force: true })
 
             this.sequel.authenticate();
         }
 
         async addUser(username, password){
+            // insert validator
             return await this.User.create({
                 username,
                 password

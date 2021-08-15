@@ -8,7 +8,7 @@ import {
 const initialState = {
     registering: false,
     prompt_open: false,
-    message:null
+    message:''
 };
 
 export default function registration(state = initialState, action) {

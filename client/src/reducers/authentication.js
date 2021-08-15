@@ -13,7 +13,7 @@ const initialState = {
     logging_in: false,
     logging_out: false,
     prompt_open: false,
-    message: null,
+    message: '',
     user: null
 };
 
