@@ -12,15 +12,15 @@ export const lightTheme = createTheme({
         green: '#859900',
     },
     modes:{
-        dark_default:'#073642',
-        dark_paper:'#002b36',
-        light_default:'#fdf6e3',
-        light_paper:'#eee8d5'
+        dark_paper:'#073642',
+        dark_default:'#002b36',
+        light_paper:'#fdf6e3',
+        light_default:'#eee8d5'
     },
     palette: {
         background:{
-            default:'#fdf6e3',
-            paper:'#eee8d5'
+            paper:'#fdf6e3',
+            default:'#eee8d5'
         },
         text:{
             primary:'#586e75',
@@ -61,15 +61,15 @@ export const darkTheme = createTheme({
         green: '#859900',
     },
     modes:{
-        dark_default:'#073642',
-        dark_paper:'#002b36',
-        light_default:'#fdf6e3',
-        light_paper:'#eee8d5'
+        dark_paper:'#073642',
+        dark_default:'#002b36',
+        light_paper:'#fdf6e3',
+        light_default:'#eee8d5'
     },
     palette: {
         background:{
-            default:'#073642',
-            paper:'#002b36'
+            paper:'#073642',
+            default:'#002b36'
         },
         text:{
             primary:'#93a1a1',

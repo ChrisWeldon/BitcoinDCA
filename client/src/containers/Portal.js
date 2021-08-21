@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Portal from '../components/Portal';
-import { logout } from '../actions'
+import { logout } from '../actions/authentication'
 
 const mapStateToProps = (state) => ({
     logged_in : state.authentication.logged_in

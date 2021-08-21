@@ -29,7 +29,7 @@ export default function NightSwitch({night_mode, flipTheme}){
         <FormGroup>
             <FormControlLabel
                 control={<NightSwitchStyled checked={night_mode} onChange={() => flipTheme()} name="NightSwitch" />}
-                label={night_mode ? 'To Day?' : 'To Night?'}
+
             />
         </FormGroup>
     )

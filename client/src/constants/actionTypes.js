@@ -13,3 +13,14 @@ export const LOGOUT_SUCCESS = 'login/LOGOUT_SUCCESS'
 
 export const CLOSE_LOGIN_PROMPT = 'login/CLOSE_PROMPT'
 export const CLOSE_REGISTER_PROMPT = 'register/CLOSE_PROMPT'
+
+export const START_EDITING = 'editing/START_EDITING'
+export const STOP_EDITING = 'editing/STOP_EDITING'
+
+export const UPDATE_REQUEST = 'editing/UPDATE_REQUEST'
+export const UPDATE_FAILED = 'editing/UPDATE_FAILED'
+export const UPDATE_SUCCEED = 'editing/UPDATE_SUCCEED'
+
+export const DELETE_REQUEST = 'editing/DELETE_REQUEST'
+export const DELETE_SUCCEED = 'editing/DELETE_SUCCEED'
+export const DELETE_FAILED = 'editing/DELETE_FAILED'

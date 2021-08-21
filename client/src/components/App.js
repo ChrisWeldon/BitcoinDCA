@@ -11,6 +11,10 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
+import {
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import NightSwitch from '../containers/NightSwitch';
 import Login from '../containers/Login'
@@ -23,25 +27,27 @@ function App({ night_mode, logged_in }) {
             <ThemeProvider theme={night_mode ? darkTheme : lightTheme}>
             <CssBaseline />
             {/*<React.StrictMode>*/}
-            <Router>
-                <Switch>
-                    <Route path='/login'>
-                        <Login />
-                    </Route>
-                    <Route path='/register'>
-                        <Register />
-                    </Route>
-                    <Route path='/portal'>
-                        <Portal />
-                    </Route>
-                    <Route path='/'>
-                        <Redirect to={
-                            logged_in ? '/portal' : '/login'
-                        } />
-                    </Route>
-                </ Switch>
-            </Router>
-            {/*</ React.StrictMode>*/}
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Router>
+                    <Switch>
+                        <Route path='/login'>
+                            <Login />
+                        </Route>
+                        <Route path='/register'>
+                            <Register />
+                        </Route>
+                        <Route path='/portal'>
+                            <Portal />
+                        </Route>
+                        <Route path='/'>
+                            <Redirect to={
+                                logged_in ? '/portal' : '/login'
+                            } />
+                        </Route>
+                    </ Switch>
+                </Router>
+                {/*</ React.StrictMode>*/}
+            </MuiPickersUtilsProvider>
             </ThemeProvider>
         </div>
     );

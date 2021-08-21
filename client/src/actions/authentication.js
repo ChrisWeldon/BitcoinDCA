@@ -1,10 +1,6 @@
 import * as types from '../constants/actionTypes'
 let base64 = require('base-64');
 
-export const flip_theme = () => ({
-    type: types.FLIP_THEME
-})
-
 export const request_login = () => ({
     type: types.REQUEST_LOGIN
 })
@@ -18,7 +14,6 @@ export const login_fail = (err) => ({
     type: types.LOGIN_FAIL,
     message: err
 })
-
 
 export const request_register = () => ({
     type: types.REQUEST_REGISTER

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App'
-import { flip_switch } from '../actions'
+import { flip_switch } from '../actions/theme'
 
 const mapStateToProps = (state) => (
     {

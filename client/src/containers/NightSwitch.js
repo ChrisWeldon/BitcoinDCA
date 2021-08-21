@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NightSwitch from '../components/NightSwitch'
-import { flip_theme } from '../actions'
+import { flip_theme } from '../actions/theme'
 
 const mapStateToProps = (state) => (
     {
