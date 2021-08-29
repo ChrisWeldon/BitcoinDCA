@@ -14,7 +14,9 @@ const initialState = {
     logging_out: false,
     prompt_open: false,
     message: '',
-    user: null
+    user: {
+        name: null
+    }
 };
 
 export default function authentication(state = initialState, action) {
@@ -37,7 +39,7 @@ export default function authentication(state = initialState, action) {
                 logged_in:false,
                 prompt_open:true,
                 message: action.message,
-                user:null
+                user: initialState.user
             };
         case REQUEST_LOGOUT:
             return {
@@ -49,7 +51,7 @@ export default function authentication(state = initialState, action) {
                 ...state,
                 logged_in:false,
                 logging_out:false,
-                user:null
+                user: initialState.user
             }
         case LOGOUT_FAIL:
             return {

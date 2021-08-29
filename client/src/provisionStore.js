@@ -10,6 +10,14 @@ import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 
+const jwtTokenAdder = store => next => action => {
+    // TODO auto add token to requests
+    const token = localStorage.getItem('jwt_token');
+    console.log("Custom Middleware triggered:");
+    console.log(token)
+    next(action);
+}
+
 export default function provisionStore(){
 
     const loggerMiddleware = createLogger()
@@ -18,6 +26,7 @@ export default function provisionStore(){
         ...reducers,
     });
 
+    // TODO: figure this shit out
     const migrations = {
         0: function(state){
             return {

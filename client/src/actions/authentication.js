@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes'
-let base64 = require('base-64');
+import formEncoder from '../helpers/formEncoder'
+const base64 = require('base-64');
 
 export const request_login = () => ({
     type: types.REQUEST_LOGIN
@@ -52,13 +53,12 @@ export const close_register_prompt = () => ({
 // Login thunk
 export function login(username, password){
     return function(dispatch, getState){
-        console.log('Login Called')
         dispatch(request_login())
 
         let headers = new Headers();
         headers.set('Authorization', 'Basic ' + base64.encode(username + ":" + password));
 
-        fetch('http://localhost:5000/login',
+        fetch('http://localhost:5000/auth/login',
             {
                 method:'POST',
                 headers:headers
@@ -70,7 +70,8 @@ export function login(username, password){
                 return res.json()
             })
             .then(res => {
-                //localStorage.setItem('user', JSON.stringify(res));
+                console.log(res)
+                localStorage.setItem('token', res.token);
                 dispatch(login_success(res))
             })
             .catch(err => dispatch(login_fail(err)))
@@ -80,48 +81,34 @@ export function login(username, password){
 // Register thunk
 export function register(username, password){
     return function(dispatch, getState){
-        console.log('Register Called')
-        console.log(username + ' '+ password)
         dispatch(request_register())
+
 
         const details = {
             user: username,
             pass: password
         }
 
-        console.log("after req")
 
-        // This formatting is all for url-encoded forms. Consider using multi-part/formbody MIME
-        var formBody = [];
-        for (var property in details) {
-          var encodedKey = encodeURIComponent(property);
-          var encodedValue = encodeURIComponent(details[property]);
-          formBody.push(encodedKey + "=" + encodedValue);
-        }
-        formBody = formBody.join("&");
-
-        fetch('http://localhost:5000/register',
+        fetch('http://localhost:5000/auth/register',
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: formBody
+                body: formEncoder(details)
             })
             .then(res=>{
-                console.log(res)
                 return res.json()
             })
             .then(res => {
                 if('error' in res){
                     throw res['error']
                 }
-                //localStorage.setItem('user', JSON.stringify(res));
                 dispatch(register_success(res))
                 dispatch(login(username, password))
             })
             .catch(err => {
-                console.log(err)
                 dispatch(register_fail(err))
             })
     }
@@ -132,11 +119,24 @@ export function logout(){
     return function(dispatch, getState){
         dispatch(request_logout)
 
-        fetch('http://localhost:5000/logout')
+
+        const details = {
+            token: localStorage.getItem('token')
+        }
+
+        fetch('http://localhost:5000/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/x-www-form-urlencoded',
+                    'Authorization' : `Bearer ${details.token}`
+                },
+                // body: formEncoder(details)
+            })
             .then(res=>{
+                localStorage.clear();
                 dispatch(logout_success())
             })
-            .catch(err => dispatch(register_fail(err)))
+            .catch(err => dispatch(logout_fail(err)))
 
     }
 }

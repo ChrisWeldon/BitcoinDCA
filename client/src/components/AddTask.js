@@ -29,22 +29,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function AddTask({ open, quitEditing, saveEditing}){
+export default function AddTask({ open, quitEditing, saveTask}){
     const classes = useStyles()
-
-    const [selectedDate, setSelectedDate] = useState(new Date('2014-08-18T21:11:54'));
 
     const [values, setValues] = useState({
         amount: '',
+        time: '',
+        title: ''
     });
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const [days, setDays] = useState({
+        sun: false,
+        mon: false,
+        tue: false,
+        wed: false,
+        thu: false,
+        fri: false,
+        sat: false
+    });
+
+    const handleDayChange = (prop) => (event) => {
+        console.log('called')
+        setDays({ ...days, [prop]: !days[prop] });
     };
+
+
+    const task_args = {
+        title:"hey guy 1",
+        amount: 10,
+        time: "720am"
+    }
 
     const full_width = true;
     const max_width = 'xs'
@@ -71,6 +89,7 @@ export default function AddTask({ open, quitEditing, saveEditing}){
                 <TextField className={classes.textField}
                     label="Title"
                     defaultValue="New Task"
+                    onChange={handleChange('title')}
                 />
                 {
                     exists ?
@@ -83,7 +102,7 @@ export default function AddTask({ open, quitEditing, saveEditing}){
                 }
             </Grid>
             <Grid item>
-                <DayPicker/>
+                <DayPicker values={days} handleChange={handleDayChange}/>
             </Grid>
             <Grid item>
                 <TextField className={classes.textField}
@@ -91,6 +110,7 @@ export default function AddTask({ open, quitEditing, saveEditing}){
                     type="time"
                     variant="filled"
                     defaultValue="07:30"
+                    onChange={handleChange('time')}
                     InputLabelProps={{
                         shrink: true,
                     }}
@@ -113,7 +133,13 @@ export default function AddTask({ open, quitEditing, saveEditing}){
             justifyContent="space-between"
             alignItems="center"
             >
-                <Button color='secondary' className={ classes.save_button } variant='contained' onClick={() => quitEditing()}>
+                <Button color='secondary'
+                className={ classes.save_button }
+                variant='contained'
+                onClick={() => saveTask({
+                    ...values,
+                    ...days
+                })}>
                     Save
                 </Button>
                 <Button color='primary' className={ classes.save_button } variant='contained' onClick={() => quitEditing()}>

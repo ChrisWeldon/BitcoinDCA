@@ -18,9 +18,9 @@ export const START_EDITING = 'editing/START_EDITING'
 export const STOP_EDITING = 'editing/STOP_EDITING'
 
 export const UPDATE_REQUEST = 'editing/UPDATE_REQUEST'
-export const UPDATE_FAILED = 'editing/UPDATE_FAILED'
-export const UPDATE_SUCCEED = 'editing/UPDATE_SUCCEED'
+export const UPDATE_FAIL = 'editing/UPDATE_FAILED'
+export const UPDATE_SUCCESS = 'editing/UPDATE_SUCCEED'
 
 export const DELETE_REQUEST = 'editing/DELETE_REQUEST'
-export const DELETE_SUCCEED = 'editing/DELETE_SUCCEED'
-export const DELETE_FAILED = 'editing/DELETE_FAILED'
+export const DELETE_SUCCESS = 'editing/DELETE_SUCCEED'
+export const DELETE_FAIL = 'editing/DELETE_FAILED'

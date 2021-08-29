@@ -25,40 +25,45 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function DayPicker({ }){
+export default function DayPicker({ values, handleChange}){
     const classes = useStyles();
 
-    const [sun, setSunday] = useState(false);
-    const [mon, setMonday] = useState(false);
-    const [tue, setTuesday] = useState(false);
-    const [wed, setWednesday] = useState(false);
-    const [thu, setThursday] = useState(false);
-    const [fri, setFriday] = useState(false);
-    const [sat, setSaturday] = useState(false);
-
+    // const [values, setValues] = useState({
+    //     sun: false,
+    //     mon: false,
+    //     tue: false,
+    //     wed: false,
+    //     thu: false,
+    //     fri: false,
+    //     sat: false
+    // });
+    //
+    // const handleChange = (prop) => (event) => {
+    //     setValues({ ...values, [prop]: !values[prop] });
+    // };
 
     return (
         <div className={classes.root}>
             <ButtonGroup size='small'>
-                <Button onClick={()=>setSunday(!sun)} className={sun ? classes.on_button : classes.off_button}>
+                <Button onClick={handleChange('sun')} className={values.sun ? classes.on_button : classes.off_button}>
                     Su
                 </Button>
-                <Button onClick={()=>setMonday(!mon)} className={mon ? classes.on_button : classes.off_button}>
+                <Button onClick={handleChange('mon')} className={values['mon'] ? classes.on_button : classes.off_button}>
                     Mo
                 </Button>
-                <Button onClick={()=>setTuesday(!tue)} className={tue ? classes.on_button : classes.off_button}>
+                <Button onClick={handleChange('tue')} className={values['tue'] ? classes.on_button : classes.off_button}>
                     Tu
                 </Button>
-                <Button onClick={()=>setWednesday(!wed)} className={wed ? classes.on_button : classes.off_button}>
+                <Button onClick={handleChange('wed')} className={values['wed'] ? classes.on_button : classes.off_button}>
                     We
                 </Button>
-                <Button onClick={()=>setThursday(!thu)} className={thu ? classes.on_button : classes.off_button}>
+                <Button onClick={handleChange('thu')} className={values['thu'] ? classes.on_button : classes.off_button}>
                     Th
                 </Button>
-                <Button onClick={()=>setFriday(!fri)} className={fri ? classes.on_button : classes.off_button}>
+                <Button onClick={handleChange('fri')} className={values['fri'] ? classes.on_button : classes.off_button}>
                     Fr
                 </Button>
-                <Button onClick={()=>setSaturday(!sat)} className={sat ? classes.on_button : classes.off_button}>
+                <Button onClick={handleChange('sat')} className={values['sat'] ? classes.on_button : classes.off_button}>
                     Sa
                 </Button>
             </ButtonGroup>

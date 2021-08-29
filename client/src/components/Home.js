@@ -83,7 +83,8 @@ const options = {
 };
 
 const data = genData();
-export default function Home({ logout, startEditingNew }){
+export default function Home({ username, logout, startEditingNew }){
+    console.log("USERNAME : " + username)
     const classes = useStyles()
 
     return (
@@ -95,12 +96,12 @@ export default function Home({ logout, startEditingNew }){
         >
             <Grid item>
                 <Typography className={classes.welcome} variant="h1" component="h2">
-                 Hello, Chris.
+                 Hello, {username}.
                 </Typography>
             </Grid>
 
             <Grid item
-             sclassName={classes.entry}
+             className={classes.entry}
              container
              direction="row"
              justifyContent="center"
