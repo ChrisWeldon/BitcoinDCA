@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Grid, TextField, Paper, Button, Typography, IconButton} from '@material-ui/core';
+import { Grid, TextField, Paper, Button, Typography, IconButton, Box} from '@material-ui/core';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import { Bar } from 'react-chartjs-2';
+import 'chartjs-adapter-date-fns';
+import { de } from 'date-fns/locale';
+import { format } from 'date-fns'
+
 import AddAlarmIcon from '@material-ui/icons/AddAlarm';
 import NightSwitch from '../containers/NightSwitch';
+import TaskCard from '../containers/TaskCard';
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
         width: '100vw',
-        height: '100vh',
+        //height: '100vh',
         flexGrow:1
     },
     welcome:{
@@ -16,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper_grid:{
         minHeight:600,
-        height: '80vh'
+        //minHeight: '80vh',
     },
     entry:{
         padding: theme.spacing(1)
@@ -37,56 +44,96 @@ const useStyles = makeStyles((theme) => ({
     logout_button:{
 
     },
+    tasks_panel:{
+        //backgroundColor: theme.palette.background.default,
+    }
 }));
 
 
-const rand = () => Math.floor(Math.random() * 255);
+const rand = () => Math.floor(Math.random() * 255)
 
-const genData = () => ({
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+const genData = (labels, points) => ({
+  labels: labels,
+
   datasets: [
     {
-      type: 'line',
-      label: 'Dataset 1',
-      borderColor: `rgb(${rand()}, ${rand()}, ${rand()})`,
-      borderWidth: 2,
-      fill: false,
-      data: [rand(), rand(), rand(), rand(), rand(), rand()],
-    },
-    {
       type: 'bar',
-      label: 'Dataset 2',
-      backgroundColor: `rgb(${rand()}, ${rand()}, ${rand()})`,
-      data: [rand(), rand(), rand(), rand(), rand(), rand(), rand()],
-      borderColor: 'white',
-      borderWidth: 2,
-    },
-    {
-      type: 'bar',
-      label: 'Dataset 3',
-      backgroundColor: `rgb(${rand()}, ${rand()}, ${rand()})`,
-      data: [rand(), rand(), rand(), rand(), rand(), rand(), rand()],
+      //label: 'Dataset 1',
+      backgroundColor: `rgb(${255}, ${0}, ${255})`,
+      barThickness:20,
+      data: points,
+      //borderColor: 'white',
+      //borderWidth: 1,
     },
   ],
 });
 
 const options = {
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
+    plugins:{
+        legend: {
+            display: false
+        }
+    },
+    scales: {
+        yAxes:
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+            type: 'linear',
+            display: true,
+            position: 'left ',
+            id: 'y-axis-2',
+            gridLines: {
+              drawOnArea: true,
+            },
+          },
+        xAxes: {
+            type: 'time',
+            grouped:true,
+            scaleLabel: {
+                display: true,
+            },
+            time: {
+                unit: 'hour',
+                stepSize: 24, // I'm using 3 hour intervals here
+                tooltipFormat: 'EEEE hh:mmaaa',
+                displayFormats: {
+                   'hour': 'EEEEEE, MMM dd',
+                   'day': 'EEEEEE, MMM dd',
+                }
+            },
+            grid:{
+                offset:false
+            },
+            ticks: {
+                display:true,
+                major: {
+                    enabled: true, // <-- This is the key line
+                    fontStyle: 'bold', //You can also style these values differently
+                    fontSize: 14 //You can also style these values differently
+                },
+            },
+        }
   },
 };
 
-const data = genData();
-export default function Home({ username, logout, startEditingNew }){
-    console.log("USERNAME : " + username)
-    const classes = useStyles()
+export default function Home({ username, logout, tasks, tasks_loaded, tasks_loading, startEditingNew, getTasks}){
 
+    const [week, changeWeek] = useState(0)
+
+    var labels = []
+    var points = []
+    for(var i=0;i<168;++i){
+        labels.push(format(new Date(2021, 7, 29+7*week, i), 'yyyy-MM-dd HH:mm'))
+        points.push(i%20==0 ? rand() : 0)
+    }
+
+    const data = genData(labels, points);
+
+    const classes = useStyles()
+    if(!tasks_loaded && !tasks_loading)
+        getTasks()
     return (
         <Grid className={classes.paper_grid}
             container
@@ -126,6 +173,22 @@ export default function Home({ username, logout, startEditingNew }){
                  data={data}
                  options={options}
                 />
+                <IconButton
+                onClick={()=>changeWeek(week-1)}
+                >
+                    <NavigateBeforeIcon/>
+                </IconButton>
+                <IconButton
+                onClick={()=>changeWeek(week+1)}
+                >
+                    <NavigateNextIcon/>
+                </IconButton>
+            </Grid>
+
+            <Grid item className={classes.tasks_panel}>
+                {
+                    tasks.map((task)=>(<TaskCard title={task.title} amount={task.amount} time={task.time} id={task.id}/>))
+                }
             </Grid>
 
 

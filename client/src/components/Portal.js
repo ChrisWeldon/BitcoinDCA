@@ -9,6 +9,7 @@ import AddTask from '../containers/AddTask'
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
+        marginBottom: theme.spacing(8),
         paddingTop: theme.spacing(3),
         paddingLeft: theme.spacing(3),
         paddingRight: theme.spacing(3),

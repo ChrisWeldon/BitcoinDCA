@@ -28,20 +28,6 @@ const useStyles = makeStyles((theme) => ({
 export default function DayPicker({ values, handleChange}){
     const classes = useStyles();
 
-    // const [values, setValues] = useState({
-    //     sun: false,
-    //     mon: false,
-    //     tue: false,
-    //     wed: false,
-    //     thu: false,
-    //     fri: false,
-    //     sat: false
-    // });
-    //
-    // const handleChange = (prop) => (event) => {
-    //     setValues({ ...values, [prop]: !values[prop] });
-    // };
-
     return (
         <div className={classes.root}>
             <ButtonGroup size='small'>

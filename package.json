@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chartjs-adapter-date-fns": "^2.0.0",
+    "date-fns": "^2.23.0",
     "express-session": "^1.17.2",
     "redux-persist": "^6.0.0"
   }

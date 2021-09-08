@@ -48,10 +48,7 @@ export default function authentication(state = initialState, action) {
             };
         case LOGOUT_SUCCESS:
             return {
-                ...state,
-                logged_in:false,
-                logging_out:false,
-                user: initialState.user
+                ...initialState
             }
         case LOGOUT_FAIL:
             return {

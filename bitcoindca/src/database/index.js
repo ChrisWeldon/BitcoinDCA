@@ -28,7 +28,7 @@ const { User, Task } = sequel.models;
 User.hasMany(Task);
 Task.belongsTo(User);
 
-sequel.sync({alter:true})
+sequel.sync({force:true})
 
 // We export the sequelize connection instance to be used around our app.
 module.exports = sequel;

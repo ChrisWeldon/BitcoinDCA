@@ -8,7 +8,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     quitEditing : () => dispatch(stop_editing()),
-    saveTask: (args) => dispatch(saveTask(args)),
+    saveTask: (args) => {
+        dispatch(saveTask(args))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddTask)

@@ -19,6 +19,7 @@
     "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
+    "node-cron": "^3.0.0",
     "nodemon": "^2.0.12",
     "passport": "^0.4.1",
     "passport-http": "^0.3.0",

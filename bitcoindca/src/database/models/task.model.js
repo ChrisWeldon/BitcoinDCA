@@ -5,16 +5,15 @@ module.exports = (sequel) => {
         // Model attributes are defined here
         title: {
             type: DataTypes.STRING,
-            unique: true,
-            allowNull: false
-        },
-        time:{
-            type: DataTypes.STRING,
             allowNull: false
         },
         amount:{
             type: DataTypes.FLOAT(10, 5),
             defaultValue:0.0
+        },
+        time:{
+            type: DataTypes.STRING,
+            allowNull: false
         },
         sun:{
             type: DataTypes.BOOLEAN,
@@ -44,6 +43,15 @@ module.exports = (sequel) => {
             type: DataTypes.BOOLEAN,
             defaultValue:false
         },
+        day_of_month:{
+            type: DataTypes.INTEGER,
+            allowNull:true
+        },
+        repeat:{
+            type: DataTypes.STRING,
+            allowNull:false,
+            defaultValue: 'weekly' //'monthly'
+        }
         }, {
         // Other model options go here
         });
