@@ -33,9 +33,9 @@ export default function AddTask({ open, quitEditing, saveTask}){
     const classes = useStyles()
 
     const [values, setValues] = useState({
-        amount: '',
-        time: '',
-        title: ''
+        amount: 0,
+        time: '07:30',
+        title: 'New Task'
     });
 
     const handleChange = (prop) => (event) => {
@@ -53,16 +53,9 @@ export default function AddTask({ open, quitEditing, saveTask}){
     });
 
     const handleDayChange = (prop) => (event) => {
-        console.log('called')
         setDays({ ...days, [prop]: !days[prop] });
     };
 
-
-    const task_args = {
-        title:"hey guy 1",
-        amount: 10,
-        time: "720am"
-    }
 
     const full_width = true;
     const max_width = 'xs'
@@ -87,8 +80,8 @@ export default function AddTask({ open, quitEditing, saveTask}){
             alignItems="center"
             >
                 <TextField className={classes.textField}
-                    label="Title"
-                    defaultValue="New Task"
+                    //label="Title"
+                    placeholder={values.title}
                     onChange={handleChange('title')}
                 />
                 {
@@ -109,7 +102,7 @@ export default function AddTask({ open, quitEditing, saveTask}){
                     label="Trade Time"
                     type="time"
                     variant="filled"
-                    defaultValue="07:30"
+                    defaultValue={values.time}
                     onChange={handleChange('time')}
                     InputLabelProps={{
                         shrink: true,
@@ -122,7 +115,7 @@ export default function AddTask({ open, quitEditing, saveTask}){
                     <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
                     <FilledInput
                     id="filled-adornment-amount"
-                    value={values.amount}
+                    defaultValue={values.amount}
                     onChange={handleChange('amount')}
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     />

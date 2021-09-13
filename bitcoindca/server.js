@@ -38,7 +38,7 @@ app.get('/', passport.authenticate('jwt', { session: false }),
 
 
 app.use(function (err, req, res, next) {
-    console.log('Error Handler called')
+    console.log('Error Handler called: ', err)
     res.status(400).send(err.message)
 })
 

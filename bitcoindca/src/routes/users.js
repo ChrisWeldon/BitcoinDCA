@@ -17,6 +17,7 @@ router.use(async function(req, res, next){ // FIXME: this creates a new user on 
 
 router.post('/register', async function(req, res){
     //TODO verify that it is a good username and password
+    // TODO send email, with a 1 time use key that then when verified create's the user
     User.create({
             username: req.body.user,
             password: req.body.pass
@@ -35,8 +36,10 @@ router.post('/login', passport.authenticate('basic', { session:false }),
     async (req, res, next) => {
         try {
             user = req.user
-
-            const body = { id: user.dataValues.id, name: user.dataValues.username };
+            const body = {
+                id: user.dataValues.id,
+                name: user.dataValues.username
+            };
             const token = jwt.sign({ user: body }, 'TOP_SECRET');
             return res.json({
                 ...user.dataValues,

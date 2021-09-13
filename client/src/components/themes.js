@@ -10,6 +10,8 @@ export const lightTheme = createTheme({
         blue: '#268bd2',
         cyan: '#2aa198',
         green: '#859900',
+        silver: '#D5B0AC',
+        morningblue: '#8DB1AB',
     },
     modes:{
         dark_paper:'#073642',

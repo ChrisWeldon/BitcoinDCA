@@ -115,6 +115,7 @@ export function register(username, password){
 }
 
 // Logout thunk
+// TODO refactor, this is retarded
 export function logout(){
     return function(dispatch, getState){
         dispatch(request_logout)

@@ -6,20 +6,24 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
     card:{
-        //padding: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        borderRadius: 8,
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.accent.green, // sell is red
+        transition: "background .3s, color .3s",
+        "&:hover": {
+            backgroundColor: theme.accent.green + "BB",
+        },
         width: 300,
-        border: 1,
-        borderColor: theme.accent.orange
+        color: theme.palette.background.paper
     }
 }));
 
 export default function TaskCard({ title, amount, time, deleteTask }){
     const classes = useStyles();
     return(
-        <Paper className={classes.card} variant="outlined" square={true}>
-        <Box
+        <Box onClick={()=>console.log("TODO: EDIT")} className={classes.card} variant="outlined" square={true}
             display="flex"
             justifyContent="space-between"
             flexDirection="row"
@@ -44,6 +48,5 @@ export default function TaskCard({ title, amount, time, deleteTask }){
               <DeleteIcon fontSize="medium" />
             </IconButton>
         </Box>
-        </Paper>
     )
 }

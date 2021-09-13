@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow:1
     },
     paper: {
+        transition: "background .3s, color .3s",
         padding: theme.spacing(3),
         margin: 'auto',
     },

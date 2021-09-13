@@ -8,6 +8,7 @@ import AddTask from '../containers/AddTask'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
+        transition: "background .3s, color .3s",
         marginTop: theme.spacing(8),
         marginBottom: theme.spacing(8),
         paddingTop: theme.spacing(3),

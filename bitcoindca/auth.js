@@ -12,8 +12,13 @@ passport.use( new JWTstrategy(
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken() //ExtractJWT.fromUrlQueryParameter('secret_token')
     },
     async (token, done) => {
+        const minutes = 5 * 60 * 1000; // 30 seconds
         try {
-            return done(null, token.user);
+            if(new Date() - new Date(token.iat*1000) <= minutes){
+                return done(null, token.user);
+            }else{
+                return done(null, false, { message: 'token expired' })
+            }
         } catch (error) {
             console.log(error)
             done(error);

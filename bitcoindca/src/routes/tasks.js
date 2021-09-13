@@ -31,6 +31,7 @@ class TaskManager{
     }
 
     deleteTask(id){
+        this.tasks[id].stop();
         this.tasks[id].destroy();
         delete this.tasks[id];
     }
@@ -59,7 +60,7 @@ router.post('/', async function(req, res){
             ...req.body,
             UserId: req.user.id
         })
-        .then((task)=>cron_manager.addTask(task))
+        //.then((task)=>cron_manager.addTask(task))
         .then((task)=>res.json(task.dataValues))
         .catch((err)=>res.json({ message: err }))
 });
@@ -71,7 +72,10 @@ router.delete('/:taskId', async function(req, res){
             id: req.params.taskId
         }
     })
-    .then((x)=>res.json(x))
+    //.then((task)=>cron_manager.deleteTask(task.id))
+    .then((x)=>{
+        res.json(x)
+    })
     .catch((err)=>res.json({ message: err }))
 });
 

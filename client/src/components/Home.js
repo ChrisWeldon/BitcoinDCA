@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     button:{
         padding: theme.spacing(2),
         margin: theme.spacing(1),
+        borderRadius: 8,
         justifyContent:'left',
         height: 50,
         width: 200
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(1)
     },
     logout_button:{
-
+        borderRadius: 8
     },
     tasks_panel:{
         //backgroundColor: theme.palette.background.default,
@@ -134,6 +135,7 @@ export default function Home({ username, logout, tasks, tasks_loaded, tasks_load
     const classes = useStyles()
     if(!tasks_loaded && !tasks_loading)
         getTasks()
+    console.log("tasks: ", tasks)
     return (
         <Grid className={classes.paper_grid}
             container
