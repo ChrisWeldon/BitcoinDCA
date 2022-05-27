@@ -23,7 +23,7 @@ app.use(cors())
 app.use('/auth', AuthRouter) // Gotta pass in passport cause it handles the Strategies
 app.use('/tasks', passport.authenticate('jwt', { session: false }), TaskRouter)
 
-app.get('/', passport.authenticate('jwt', { session: false }),
+app.get('/',
     async function(req, res){
         try {
             await database.authenticate();
